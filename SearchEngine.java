@@ -21,7 +21,7 @@ class SearchHandler implements URLHandler {
                     String newWord = parameters[1];
                     words.add((newWord));
                     numOfWords += 1;
-                    return String.format("Word %d added. Now we have %s words", newWord, numOfWords);
+                    return String.format("Word %s added. Now we have %d words", newWord, numOfWords);
                 }
             return String.format("Error. Type in a correct format");
         } 
@@ -31,12 +31,12 @@ class SearchHandler implements URLHandler {
                 if (parameters[0].equals("s")) {
                     String searchedWord = parameters[1];
                     for (String s : words){
-                        if (words.contains(searchedWord)){
-                           selectedWords.add(searchedWord);
+                        if (s.contains(searchedWord)){
+                           selectedWords.add(s);
                         }
                     }
                     if (selectedWords.size() == 0) {
-                        return String.format("There are no words in the list that contain %d", searchedWord);
+                        return String.format("There are no words in the list that contain %s", searchedWord);
                     }
                     else {
                         return selectedWords.toString();
@@ -60,6 +60,6 @@ class SearchEngine {
 
         int port = Integer.parseInt(args[0]);
 
-        Server.start(port, new Handler());
+        Server.start(port, new SearchHandler());
     }
 }
